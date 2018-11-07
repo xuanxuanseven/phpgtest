@@ -101,7 +101,6 @@ class Slide{
                 }else{
                     $msg = self::validate($config, $_POST[self::$post_x_name], $more);
                 }
-    
 
 	            echo json_encode($msg);
                 exit();
@@ -125,6 +124,8 @@ class Slide{
         $data = $this->get_png_info;
         // 分割为左边图片与右边图片
         $pic_temp = array_chunk($data['data'],20);
+
+
         $pg_bg    = $data['bg_pic'] ;
         $ico_pic  = $data['ico_pic'];
         $y_point  = $data['y_point'];
@@ -298,14 +299,14 @@ class Slide{
         // 配置信息
         $srcFile        = $this->bigPicName;
         $bigPicName     = $this->bigPicName;
-        $thumbnailWide  = $this->pic_info['w'];
-        $thumbnailHeight= $this->pic_info['h'];
+        $thumbnailWide  = $this->pic_info['w'];//原图的宽度
+        $thumbnailHeight= $this->pic_info['h'];//原图的高度
         // 开始剪裁工作
         $num_w = 20;
         $num_h = 2;
         //每张小图宽度，高度
-        $number_wide   = $thumbnailWide/$num_w;
-        $number_height = $thumbnailHeight/$num_h;
+        $number_wide   = $thumbnailWide/$num_w;//小图的宽度
+        $number_height = $thumbnailHeight/$num_h;//小图的高度
         $p_x =0;
         $p_y =0;
         for($y=0;$y<$num_h;$y++) {
@@ -327,7 +328,7 @@ class Slide{
         $target_imgA = imagecreatetruecolor($thumbnailWide, $thumbnailHeight);
         $dstImBg = @imagecolorallocate($target_imgA,255,255,255);
         imagefill($target_imgA,0,0,$dstImBg); //创建背景为白色的图片
-        $srcIm   = @imagecreatefrompng($srcFile); //截取指定区域
+        $srcIm   = @imagecreatefrompng($srcFile); //截取指定区域  截取一块后的图
 
         $p_x =0;
         $p_y =0;
